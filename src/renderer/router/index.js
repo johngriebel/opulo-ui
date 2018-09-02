@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/components/SignUp').default,
     },
     {
+      path: '/my-photos',
+      name: 'my-photos',
+      component: require('@/components/MyPhotos').default,
+    },
+    {
       path: '*',
       redirect: '/',
     },
