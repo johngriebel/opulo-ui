@@ -19,7 +19,7 @@
                 <div class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <p>Don't have an account? Sign up.</p>
+                            <p>Don't have an account? <router-link to="/sign-up">Sign up</router-link>.</p>
                         </div>
                     </div>
                     <div class="level-right">
