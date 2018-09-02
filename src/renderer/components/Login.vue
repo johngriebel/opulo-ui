@@ -16,28 +16,43 @@
                         <input class="input" type="password" placeholder="Password" v-model="password">
                     </div>
                 </div>
-                <button class="button" v-on:click="login">Log In</button>
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p>Don't have an account? Sign up.</p>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button" v-on:click="login">Log In</button>
+                        </div>
+                    </div>
+                </div>
             </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
+    import config from '../../config';
 
-  export default {
-    name: 'landing-page',
-    data() {
-      return {
-        username: '',
-        password: '',
-      };
-    },
-    methods: {
-      login() {
-        console.log(this.username);
-        console.log(this.password);
+    export default {
+      name: 'landing-page',
+      data() {
+        return {
+          username: '',
+          password: '',
+        };
       },
-    },
-  };
+      methods: {
+        login() {
+          axios.post(`${config.OPULO_API_URL}/api-token-auth`, { username: this.username, password: this.password })
+            .then((response) => {
+              localStorage.setItem('opulo_token', response.data.token);
+            });
+        },
+      },
+    };
 </script>
 
 <style>
