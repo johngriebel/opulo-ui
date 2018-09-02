@@ -44,11 +44,18 @@
           password: '',
         };
       },
+      beforeCreate() {
+        const token = localStorage.getItem('opulo_token');
+        if (token !== undefined) {
+          this.$router.push('/my-photos');
+        }
+      },
       methods: {
         login() {
           axios.post(`${config.OPULO_API_URL}/api-token-auth`, { username: this.username, password: this.password })
             .then((response) => {
               localStorage.setItem('opulo_token', response.data.token);
+              this.$router.push('/my-photos');
             });
         },
       },
