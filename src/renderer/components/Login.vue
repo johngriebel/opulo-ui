@@ -1,9 +1,7 @@
 <template>
     <div class="container-fluid">
-      <img id="logo" src="../assets/logo.png" alt="opulo">
         <div class="row">
             <div class="col">
-
             </div>
             <div class="col">
                 <form>
@@ -74,53 +72,12 @@
 
   body { font-family: 'Source Sans Pro', sans-serif; }
 
-  #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
-    height: 100vh;
-    padding: 60px 80px;
-    width: 100vw;
-  }
-
-  #logo {
-    height: 132px;
-    margin-bottom: 20px;
-    width: 142px;
-  }
-
   main {
     display: flex;
     justify-content: space-between;
   }
 
   main > div { flex-basis: 50%; }
-
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
 
   .doc p {
     color: black;
