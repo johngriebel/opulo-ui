@@ -1,27 +1,25 @@
 <template>
-    <div class="container is-fluid">
-        <figure class="image is-128x128">
-            <img id="logo" src="~@/assets/logo.png" alt="opulo">
-        </figure>
-        <nav class="pagination" role="navigation" aria-label="pagination">
+    <div class="container-fluid">
+        <!--nav class="pagination" role="navigation" aria-label="pagination">
             <a class="pagination-previous" v-on:click="previousPageClicked">Previous</a>
             <a class="pagination-next" v-on:click="nextPageClicked">Next</a>
+        </nav-->
+        <nav>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" v-on:click="previousPageClicked">Previous</a></li>
+                <li class="page-item" v-for="page in pagesToDisplay" v-bind:class="{ active: page === currentPageNum }" v-on:click="navToPageByNumber(page)"><a class="page-link">{{page}}</a></li>
+                <li class="page-item"><a class="page-link" v-on:click="nextPageClicked">Next</a></li>
+            </ul>
         </nav>
         <div class="card" v-for="photo in photos">
-            <div class="card-image">
-                <figure class="image">
-                    <img :src="photo.on_disk">
-                </figure>
-            </div>
-            <div class="card-content">
-                <p class="title is-4" v-if="photo.provider === 'reddit'">{{photo.provider_specific_data.title}}</p>
-                <p class="title is-4" v-else-if="photo.provider === '500px'">{{photo.provider_specific_data.name}}</p>
-                <p class="subtitle is-6">{{photo.provider}}</p>
+            <img class="card-img-top" :src="photo.on_disk">
+            <div class="card-body">
+                <h5 class="card-title" v-if="photo.provider === 'reddit'">{{photo.provider_specific_data.title}}</h5>
+                <h5 class="card-title" v-else-if="photo.provider === '500px'">{{photo.provider_specific_data.name}}</h5>
+                <p class="card-text">{{photo.provider}}</p>
             </div>
         </div>
-
     </div>
-
 </template>
 
 <script>
@@ -37,9 +35,20 @@
           previousPage: '',
           currentPageNum: 1,
           totalPages: 0,
+          pagesToDisplay: [],
         };
       },
       methods: {
+        calculatePagination() {
+          this.pagesToDisplay = [];
+          if (this.currentPageNum - 1 > 0) {
+            this.pagesToDisplay.push(this.currentPageNum - 1);
+          }
+          this.pagesToDisplay.push(this.currentPageNum);
+          if (this.currentPageNum + 1 <= this.totalPages) {
+            this.pagesToDisplay.push(this.currentPageNum + 1);
+          }
+        },
         previousPageClicked() {
           const requestConfig = {
             headers: { Authorization: `Bearer ${localStorage.getItem('opulo_token')}` },
@@ -51,6 +60,7 @@
                 this.previousPage = response.data.previous;
                 this.nextPage = response.data.next;
                 this.currentPageNum -= 1;
+                this.calculatePagination();
               });
           }
         },
@@ -65,8 +75,24 @@
                 this.previousPage = response.data.previous;
                 this.nextPage = response.data.next;
                 this.currentPageNum += 1;
+                this.calculatePagination();
               });
           }
+        },
+        navToPageByNumber(pageNum) {
+          const requestConfig = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('opulo_token')}` },
+          };
+          const fullURL = `${config.OPULO_API_URL}/user-media/photos/?page=${pageNum}`;
+
+          axios.get(fullURL, requestConfig)
+            .then((response) => {
+              this.photos = response.data.results;
+              this.nextPage = response.data.next;
+              this.previousPage = response.data.previousPage;
+              this.currentPageNum = pageNum;
+              this.calculatePagination();
+            });
         },
       },
       created() {
@@ -79,6 +105,7 @@
             this.nextPage = response.data.next;
             this.previousPage = response.data.previous;
             this.totalPages = Math.ceil(response.data.count / this.photos.length);
+            this.calculatePagination();
           });
       },
     };

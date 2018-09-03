@@ -42,12 +42,10 @@
         };
       },
       beforeCreate() {
-        /*
         const token = localStorage.getItem('opulo_token');
         if (token !== undefined) {
           this.$router.push('/my-photos');
         }
-        */
       },
       methods: {
         login() {
