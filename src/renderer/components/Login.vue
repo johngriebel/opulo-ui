@@ -1,34 +1,31 @@
 <template>
-    <div class="container is-fluid">
-        <figure class="image is-128x128">
-          <img id="logo" src="~@/assets/logo.png" alt="opulo">
-        </figure>
-            <div class="box">
-                <div class="field">
-                    <label class="label">Username</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Username" v-model="username">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <form>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input id="username" class="form-control" type="text" placeholder="Username" v-model="username">
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label">Password</label>
-                    <div class="control">
-                        <input class="input" type="password" placeholder="Password" v-model="password">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" class="form-control" type="password" placeholder="Password" v-model="password">
                     </div>
-                </div>
-                <div class="level">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <p>Don't have an account? <router-link to="/sign-up">Sign up</router-link>.</p>
-                        </div>
+                </form>
+                <div class="row">
+                    <div class="col">
+                        <p>Don't have an account? <router-link to="/sign-up">Sign up</router-link>.</p>
                     </div>
-                    <div class="level-right">
-                        <div class="level-item">
-                            <button class="button" v-on:click="login">Log In</button>
-                        </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary float-right" v-on:click="login">Login</button>
                     </div>
                 </div>
             </div>
+            <div class="col">
+            </div>
+        </div>
     </div>
 </template>
 
@@ -73,53 +70,12 @@
 
   body { font-family: 'Source Sans Pro', sans-serif; }
 
-  #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
-    height: 100vh;
-    padding: 60px 80px;
-    width: 100vw;
-  }
-
-  #logo {
-    height: auto;
-    margin-bottom: 20px;
-    width: 420px;
-  }
-
   main {
     display: flex;
     justify-content: space-between;
   }
 
   main > div { flex-basis: 50%; }
-
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
 
   .doc p {
     color: black;
