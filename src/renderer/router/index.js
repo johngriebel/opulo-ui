@@ -21,6 +21,11 @@ export default new Router({
       component: require('@/components/MyPhotos').default,
     },
     {
+      path: '/photo-upload',
+      name: 'photo-upload',
+      component: require('@/components/PhotoUpload').default,
+    },
+    {
       path: '*',
       redirect: '/',
     },

@@ -43,7 +43,8 @@
       },
       beforeCreate() {
         const token = localStorage.getItem('opulo_token');
-        if (token !== undefined) {
+        console.log('token', token);
+        if (token !== undefined && token !== null) {
           this.$router.push('/my-photos');
         }
       },

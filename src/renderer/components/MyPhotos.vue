@@ -4,21 +4,33 @@
             <a class="pagination-previous" v-on:click="previousPageClicked">Previous</a>
             <a class="pagination-next" v-on:click="nextPageClicked">Next</a>
         </nav-->
-        <nav>
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" v-on:click="previousPageClicked">Previous</a></li>
-                <li class="page-item" v-for="page in pagesToDisplay" v-bind:class="{ active: page === currentPageNum }" v-on:click="navToPageByNumber(page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item"><a class="page-link" v-on:click="nextPageClicked">Next</a></li>
-            </ul>
-        </nav>
-        <div class="card" v-for="photo in photos">
-            <img class="card-img-top" :src="photo.on_disk">
-            <div class="card-body">
-                <h5 class="card-title" v-if="photo.provider === 'reddit'">{{photo.provider_specific_data.title}}</h5>
-                <h5 class="card-title" v-else-if="photo.provider === '500px'">{{photo.provider_specific_data.name}}</h5>
-                <p class="card-text">{{photo.provider}}</p>
+        <div class="row">
+            <div class="col">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" v-on:click="previousPageClicked">Previous</a></li>
+                        <li class="page-item" v-for="page in pagesToDisplay" v-bind:class="{ active: page === currentPageNum }" v-on:click="navToPageByNumber(page)"><a class="page-link">{{page}}</a></li>
+                        <li class="page-item"><a class="page-link" v-on:click="nextPageClicked">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col">
+                <router-link to="/photo-upload"><button type="button" class="btn btn-primary float-right">Upload Photo</button></router-link>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="card" v-for="photo in photos">
+                    <img class="card-img-top" :src="photo.on_disk">
+                    <div class="card-body">
+                        <h5 class="card-title" v-if="photo.provider === 'reddit'">{{photo.provider_specific_data.title}}</h5>
+                        <h5 class="card-title" v-else-if="photo.provider === '500px'">{{photo.provider_specific_data.name}}</h5>
+                        <p class="card-text">{{photo.provider}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
