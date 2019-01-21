@@ -47,6 +47,7 @@
           };
           axios.post(fullURL, formData, requestConfig)
             .then((response) => {
+              console.log('response', response);
               this.$router.push('/my-photos');
             });
         },
